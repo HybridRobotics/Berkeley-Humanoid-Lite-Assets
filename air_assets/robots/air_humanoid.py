@@ -51,6 +51,8 @@ AIR_HUMANOID_CFG = ArticulationCfg(
             "leg_right_knee_pitch_joint": 0.0,
             "leg_right_ankle_pitch_joint": 0.0,
             "leg_right_ankle_roll_joint": 0.0,
+            "neck_yaw_joint": 0.0,
+            "waist_yaw_joint": 0.0,
         },
         joint_vel={".*": 0.0},
     ),
