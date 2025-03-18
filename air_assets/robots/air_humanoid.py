@@ -11,7 +11,7 @@ ISAACLAB_ASSET_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..
 
 AIR_HUMANOID_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{ISAACLAB_ASSET_DIR}/usd/berkeley_humanoid_lite.usd",
+        usd_path=f"{ISAACLAB_ASSET_DIR}/usd/air_humanoid.usd",
         activate_contact_sensors=True,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
