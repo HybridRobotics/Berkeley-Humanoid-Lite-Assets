@@ -1,5 +1,5 @@
 
-ROBOT ?= berkeley_humanoid_lite
+ROBOT ?= air_humanoid
 
 .PHONY: clean urdf mjcf usd
 
