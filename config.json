@@ -1,57 +1,9 @@
 {
-    "documentId": "8eacf058d85ce70fa4dc9355",
+    "documentId": "0036fc988ad24257d0ec6213",
     "outputFormat": "urdf",
     "assemblyName": "Assembly",
-    "robotName": "berkeley-humanoid-lite",
-    "ignore": [
-        "695-2rs_ball",
-        "695-2rs_innerhousing",
-        "695-2rs_outerhousing",
-        "695-2rs_shield",
-        "696-2rs_ball",
-        "696-2rs_innerhousing",
-        "696-2rs_outerhousing",
-        "696-2rs_shield",
-        "6701-2rs_ball",
-        "6701-2rs_innerhousing",
-        "6701-2rs_outerhousing",
-        "6701-2rs_shield",
-        "6809-2rs_ball",
-        "6809-2rs_innerhousing",
-        "6809-2rs_outerhousing",
-        "6809-2rs_shield",
-        "6811zz_ball",
-        "6811zz_innerhousing",
-        "6811zz_outerhousing",
-        "6811zz_shield",
-        "mr106-2rs_ball",
-        "mr106-2rs_innerhousing",
-        "mr106-2rs_outerhousing",
-        "mr106-2rs_shield",
-        "5972k278_ball_bearing",
-        
-        "cycloidal_disk",
-        "input_shaft",
-        "motor_shaft",
-        "output_shaft_rear",
-        "output_shaft_spacer",
-        "hex_standoff",
-
-        "rotor_mount",
-        "rotor_ring",
-        "rotor_shaft_clip",
-        "rotor_shaft",
-        "stator_coil",
-        "stator_mount",
-
-        "cables",
-        "can_connector",
-        "fets",
-        "gate_drivers",
-        "pcb",
-        "pot",
-        "moteus-controller-r45"
-    ],
+    "robotName": "air-humanoid",
+    "ignore": [],
     "color": [0.8, 0.8, 0.8],
     "addDummyBaseLink": false,
     "useFixedLinks": false,
@@ -61,9 +13,9 @@
     "maxSTLSize": 3,
     "useScads": true,
     "jointMaxEffort": {
-        "default": 20
+        "default": 15
     },
-    "jointMaxVelocity": 15,
+    "jointMaxVelocity": 20,
 
     "drawCollisions": false
 }

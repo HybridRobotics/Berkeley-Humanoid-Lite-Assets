@@ -1,4 +1,4 @@
-"""Installation script for the 'berkeley_humanoid_lite_assets' python package."""
+"""Installation script for the 'air_assets' python package."""
 
 from setuptools import setup
 
@@ -10,13 +10,13 @@ INSTALL_REQUIRES = [
 
 # Installation operation
 setup(
-    name="berkeley_humanoid_lite_assets",
-    packages=["berkeley_humanoid_lite_assets"],
-    author="Berkeley Humanoid Project Developers",
-    maintainer="Berkeley Humanoid Project Developers",
-    url="https://github.com/hybridrobotics/berkeley-humanoid-lite-assets",
-    version="2025.03.17",
-    description="Description files for Berkeley Humanoid Lite",
+    name="air_assets",
+    packages=["air_assets"],
+    author="-T.K.-",
+    maintainer="-T.K.-",
+    url="",
+    version="0.0.1",
+    description="",
     keywords=["extension", "isaaclab"],
     install_requires=INSTALL_REQUIRES,
     license="MIT",
