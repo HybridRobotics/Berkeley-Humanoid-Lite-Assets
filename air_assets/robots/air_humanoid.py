@@ -62,11 +62,9 @@ AIR_HUMANOID_CFG = ArticulationCfg(
     actuators={
         "arms": ImplicitActuatorCfg(
             joint_names_expr=[
-                "arm_.*_shoulder_pitch_joint",
-                "arm_.*_shoulder_roll_joint",
-                "arm_.*_shoulder_yaw_joint",
-                "arm_.*_elbow_pitch_joint",
-                "arm_.*_wrist_yaw_joint",
+                "arm_.*_shoulder_.*_joint",
+                "arm_.*_elbow_.*_joint",
+                "arm_.*_wrist_.*_joint",
             ],
             effort_limit=14,
             velocity_limit=27.0,
@@ -76,10 +74,8 @@ AIR_HUMANOID_CFG = ArticulationCfg(
         ),
         "legs": ImplicitActuatorCfg(
             joint_names_expr=[
-                "leg_.*_hip_yaw_joint",
-                "leg_.*_hip_roll_joint",
-                "leg_.*_hip_pitch_joint",
-                "leg_.*_knee_pitch_joint",
+                "leg_.*_hip_.*_joint",
+                "leg_.*_knee_.*_joint",
             ],
             effort_limit=17,
             velocity_limit=28.0,
@@ -89,8 +85,7 @@ AIR_HUMANOID_CFG = ArticulationCfg(
         ),
         "ankles": ImplicitActuatorCfg(
             joint_names_expr=[
-                "leg_.*_ankle_pitch_joint",
-                "leg_.*_ankle_roll_joint",
+                "leg_.*_ankle_.*_joint",
             ],
             effort_limit=14,
             velocity_limit=27.0,
@@ -100,7 +95,7 @@ AIR_HUMANOID_CFG = ArticulationCfg(
         ),
         "neck": ImplicitActuatorCfg(
             joint_names_expr=[
-                "neck_yaw_joint",
+                "neck_.*_joint",
             ],
             effort_limit=14,
             velocity_limit=27.0,
@@ -110,7 +105,7 @@ AIR_HUMANOID_CFG = ArticulationCfg(
         ),
         "waist": ImplicitActuatorCfg(
             joint_names_expr=[
-                "waist_yaw_joint",
+                "waist_.*_joint",
             ],
             effort_limit=14,
             velocity_limit=27.0,
