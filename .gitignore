@@ -10,9 +10,10 @@
 ros2/build/
 ros2/install/
 ros2/log/
-data/meshes/
-data/parts/
-data/scad/
+data/mjcf/assets/*
+!data/mjcf/assets/merged
+data/urdf/assets/*
+!data/urdf/assets/merged
 
 # Omniverse USD
 data/usd/Props/

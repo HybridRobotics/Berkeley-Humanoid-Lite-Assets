@@ -1,0 +1,67 @@
+{
+    "document_id": "8eacf058d85ce70fa4dc9355",
+    "output_format": "urdf",
+    "assembly_name": "Assembly",
+    "robot_name": "berkeley-humanoid-lite",
+    "output_filename": "berkeley_humanoid_lite",
+    "ignore": {
+        "695-2rs_ball": "all",
+        "695-2rs_innerhousing": "all",
+        "695-2rs_outerhousing": "all",
+        "695-2rs_shield": "all",
+        "696-2rs_ball": "all",
+        "696-2rs_innerhousing": "all",
+        "696-2rs_outerhousing": "all",
+        "696-2rs_shield": "all",
+        "6701-2rs_ball": "all",
+        "6701-2rs_innerhousing": "all",
+        "6701-2rs_outerhousing": "all",
+        "6701-2rs_shield": "all",
+        "6809-2rs_ball": "all",
+        "6809-2rs_innerhousing": "all",
+        "6809-2rs_outerhousing": "all",
+        "6809-2rs_shield": "all",
+        "6811zz_ball": "all",
+        "6811zz_innerhousing": "all",
+        "6811zz_outerhousing": "all",
+        "6811zz_shield": "all",
+        "mr106-2rs_ball": "all",
+        "mr106-2rs_innerhousing": "all",
+        "mr106-2rs_outerhousing": "all",
+        "mr106-2rs_shield": "all",
+        "5972k278_ball_bearing": "all",
+        
+        "cycloidal_disk": "all",
+        "input_shaft": "all",
+        "motor_shaft": "all",
+        "output_shaft_rear": "all",
+        "output_shaft_spacer": "all",
+        "hex_standoff": "all",
+
+        "rotor_mount": "all",
+        "rotor_ring": "all",
+        "rotor_shaft_clip": "all",
+        "rotor_shaft": "all",
+        "stator_coil": "all",
+        "stator_mount": "all",
+
+        "cables": "all",
+        "can_connector": "all",
+        "fets": "all",
+        "gate_drivers": "all",
+        "pcb": "all",
+        "pot": "all",
+        "moteus-controller-r45": "all"
+    },
+    "merge_stls": true,
+    "simplify_stls": true,
+    "max_stl_size": 3,
+    "use_scads": true,
+    "joint_properties": {
+        "default": {
+            "max_effort": 20,
+            "max_velocity": 15,
+            "friction": 0.1
+        }
+    }
+}

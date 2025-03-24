@@ -6,28 +6,22 @@ ROBOT ?= berkeley_humanoid_lite
 all: clean urdf mjcf usd
 
 urdf:
-	mv ./data/scad/* ./
-	mkdir -p ./data/meshes/
-	mkdir -p ./data/parts/
-	mkdir -p ./data/scad/
-	mkdir -p ./data/urdf/
-	onshape-to-robot .
-	mv *.stl ./data/meshes/
-	mv *.part ./data/parts/
-	mv *.scad ./data/scad/
-	mv *.urdf ./data/urdf/
-	python postprocess.py
-	mv ./data/urdf/robot.urdf ./data/urdf/${ROBOT}.urdf
+	mkdir -p ./data/urdf/assets/
+	cp ./data/scad/* ./data/urdf/assets/
+	onshape-to-robot ./data/urdf/
+	python postprocess.py --mode urdf --name ${ROBOT}
 
 mjcf:
-	${MUJOCO_HOME}/compile ./data/urdf/${ROBOT}.urdf ./data/mjcf/${ROBOT}.xml
+	mkdir -p ./data/mjcf/assets/
+	cp ./data/scad/* ./data/mjcf/assets/
+	onshape-to-robot ./data/mjcf/
+	mv ./data/mjcf/scene.xml ./data/mjcf/${ROBOT}_scene.xml
+	python postprocess.py --mode mjcf --name ${ROBOT}
 
 usd:
 	python ${ISAACLAB_HOME}/source/standalone/tools/convert_urdf.py ./data/urdf/${ROBOT}.urdf ./data/usd/${ROBOT}.usd --merge-joints --make-instanceable
 
 clean:
-	rm -rf ./data/meshes/*
-	rm -rf ./data/parts/*
-	rm -rf ./data/scad/*
-	rm -rf ./data/urdf/*
-	cp ./scad_override/* ./data/scad/
+	rm -rf ./data/mjcf/assets/*
+	rm -rf ./data/urdf/assets/*
+	onshape-to-robot-clear-cache
