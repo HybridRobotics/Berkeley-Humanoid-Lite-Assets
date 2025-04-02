@@ -22,6 +22,6 @@ usd:
 	python ${ISAACLAB_HOME}/source/standalone/tools/convert_urdf.py ./data/urdf/${ROBOT}.urdf ./data/usd/${ROBOT}.usd --merge-joints --make-instanceable
 
 clean:
-	rm -rf ./data/mjcf/assets/*
-	rm -rf ./data/urdf/assets/*
+	rm -rf ./data/mjcf/assets/
+	rm -rf ./data/urdf/assets/
 	onshape-to-robot-clear-cache

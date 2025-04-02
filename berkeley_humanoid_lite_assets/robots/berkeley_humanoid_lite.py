@@ -56,7 +56,7 @@ HUMANOID_LITE_BIPED_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 0.6),
+        pos=(0.0, 0.0, 0.0),
         joint_pos={
             "leg_left_hip_roll_joint": 0.0,
             "leg_left_hip_yaw_joint": 0.0,
@@ -121,7 +121,7 @@ HUMANOID_LITE_CFG = ArticulationCfg(
         ),
     ),
     init_state=ArticulationCfg.InitialStateCfg(
-        pos=(0.0, 0.0, 0.6),
+        pos=(0.0, 0.0, 0.0),
         joint_pos={
             "arm_left_shoulder_pitch_joint": 0.0,
             "arm_left_shoulder_roll_joint": 0.0,
