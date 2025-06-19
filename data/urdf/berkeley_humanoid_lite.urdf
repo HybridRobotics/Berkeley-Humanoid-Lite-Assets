@@ -203,7 +203,7 @@
     <parent link="arm_left_elbow_pitch"/>
     <child link="arm_left_elbow_roll"/>
     <axis xyz="0 0 1"/>
-    <limit effort="20" velocity="15" lower="-0.785398" upper="0.785398"/>
+    <limit effort="20" velocity="15" lower="-1.5708" upper="1.5708"/>
     <joint_properties friction="0.1"/>
   </joint>
   <!-- Joint from arm_left_shoulder_yaw to arm_left_elbow_pitch -->
@@ -221,7 +221,7 @@
     <parent link="arm_left_shoulder_roll"/>
     <child link="arm_left_shoulder_yaw"/>
     <axis xyz="0 0 1"/>
-    <limit effort="20" velocity="15" lower="-0.785398" upper="0.785398"/>
+    <limit effort="20" velocity="15" lower="-1.5708" upper="1.5708"/>
     <joint_properties friction="0.1"/>
   </joint>
   <!-- Joint from arm_left_shoulder_pitch to arm_left_shoulder_roll -->
@@ -239,7 +239,7 @@
     <parent link="base"/>
     <child link="arm_left_shoulder_pitch"/>
     <axis xyz="0 0 1"/>
-    <limit effort="20" velocity="15" lower="-1.5708" upper="0.785398"/>
+    <limit effort="20" velocity="15" lower="-2.35619" upper="1.5708"/>
     <joint_properties friction="0.1"/>
   </joint>
   <!-- Link arm_right_shoulder_pitch -->
@@ -377,7 +377,7 @@
     <parent link="arm_right_elbow_pitch"/>
     <child link="arm_right_elbow_roll"/>
     <axis xyz="0 0 1"/>
-    <limit effort="20" velocity="15" lower="-0.785398" upper="0.785398"/>
+    <limit effort="20" velocity="15" lower="-1.5708" upper="1.5708"/>
     <joint_properties friction="0.1"/>
   </joint>
   <!-- Joint from arm_right_shoulder_yaw to arm_right_elbow_pitch -->
@@ -395,7 +395,7 @@
     <parent link="arm_right_shoulder_roll"/>
     <child link="arm_right_shoulder_yaw"/>
     <axis xyz="0 0 1"/>
-    <limit effort="20" velocity="15" lower="-0.785398" upper="0.785398"/>
+    <limit effort="20" velocity="15" lower="-1.5708" upper="1.5708"/>
     <joint_properties friction="0.1"/>
   </joint>
   <!-- Joint from arm_right_shoulder_pitch to arm_right_shoulder_roll -->
@@ -413,7 +413,7 @@
     <parent link="base"/>
     <child link="arm_right_shoulder_pitch"/>
     <axis xyz="0 0 1"/>
-    <limit effort="20" velocity="15" lower="-0.785398" upper="1.5708"/>
+    <limit effort="20" velocity="15" lower="-1.5708" upper="2.35619"/>
     <joint_properties friction="0.1"/>
   </joint>
   <!-- Link leg_left_hip_roll -->
