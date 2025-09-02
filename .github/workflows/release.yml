@@ -1,0 +1,57 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v2025.05.28
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+          
+      - name: Get version from pyproject.toml
+        id: get_version
+        run: |
+          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+          
+      - name: Create data directory zip
+        run: |
+          cd data
+          zip -r ../berkeley_humanoid_lite_assets_data.zip .
+          cd ..
+          
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.get_version.outputs.tag }}
+          name: Release ${{ steps.get_version.outputs.version }}
+          body: |
+            ## Berkeley Humanoid Lite Assets ${{ steps.get_version.outputs.version }}
+            
+            This release contains the latest asset files for Berkeley Humanoid Lite.
+            
+            ### Contents
+            - MJCF files (MuJoCo XML)
+            - URDF files
+            - USD files
+            - SCAD files
+            - Visual assets (STL files)
+            
+            ### Installation
+            Extract the zip file and place the contents in your project's assets directory.
+          files: berkeley_humanoid_lite_assets_data.zip
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
