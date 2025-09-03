@@ -3,272 +3,52 @@
 This repository contains the assets files and tools necessary for working with the Berkeley Humanoid Lite model. It includes scripts for generating URDF files from Onshape and converting them to MJCF and USD formats to use in multiple simulators.
 
 
-## Generate URDF from Onshape
+## Generate description file from Onshape
 
-To export the Onshape design as URDF file, we will be using the onshape-to-robot tool.
+To export the Onshape design as URDF/MJCF file, we will be using the onshape-to-robot tool.
 
-First, we need to install the necessary dependencies:
+First, we need to install the necessary system dependencies:
 
 ```bash
 sudo apt install openscad meshlab
 ```
 
-Optionally, activate the conda environment.
+Then, run the corresponding export script:
+
+For URDF:
 
 ```bash
-conda activate berkeley-humaonid-lite
+uv run ./scripts/export_onshape_to_urdf.py --config ./data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/config.json
 ```
 
-Then, clone and install this fork of onshape-to-robot:
+For MJCF
 
 ```bash
-git clone git@github.com:T-K-233/onshape-to-robot.git
-cd ./onshape-to-robot/
-pip install -e .
+uv run ./scripts/export_onshape_to_mjcf.py --config ./data/robots/berkeley_humanoid/berkeley_humanoid_lite/mjcf/config.json
 ```
-
-Finally, we can run the following command to generate the URDF file.
 
 > **Note**
 >
-> During the generation process, onshape-to-robot will dump the intermediary files directly under the root of this repository. This is normal. After the conversion process is done, we have some scripts to automatically move them to the corresponding locations.
+> Before running the script, make sure that the robot in the OnShape project is configured correctly, and all joints are at reset position.
+
+The resulting URDF will be generated at `/data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/`, MJCF will be generated at `/data/robots/berkeley_humanoid/berkeley_humanoid_lite/mjcf/`, and the STL meshes will be shared under `/data/robots/berkeley_humanoid/berkeley_humanoid_lite/meshes/`.
+
+
+### Cleaning onshape-to-robot cache
+
+Run the following command to clear the CAD file cache.
 
 ```bash
-make urdf
-```
-
-The resulting URDF will be generated at `/data/urdf/` folder, and the STL meshes will be located under `/data/meshes/`.
-
-## Convert URDF to MJCF
-
-First, set the `MUJOCO_HOME` environment variable to point to the path of the mujoco binary.
-
-An example would be:
-
-```bash
-export MUJOCO_HOME=/home/tk/Documents/mujoco-3.2.6/bin/
-```
-
-Then, run this command to convert URDF file to MJCF file.
-
-```bash
-make mjcf
-```
-
-We are not done yet. We will need to perform some manual post processing to the generated MJCF file, located under `/data/mjcf/`.
-
-We need to add the following attributes to the generated mjcf file.
-
-For the biped robot:
-
-```xml
-  ... <!-- generated content -->
-  <worldbody>
-    <body name="base" pos="0 0 0.65">
-      <freejoint/>
-      <site name="imu" size="0.01" pos="0 0 0" />
-      ... <!-- generated content -->
-    </body>
-  </worldbody>
-
-  <actuator>
-    <motor name="leg_left_hip_roll"     gear="1" joint="leg_left_hip_roll_joint"/>
-    <motor name="leg_left_hip_yaw"      gear="1" joint="leg_left_hip_yaw_joint"/>
-    <motor name="leg_left_hip_pitch"    gear="1" joint="leg_left_hip_pitch_joint"/>
-    <motor name="leg_left_knee_pitch"   gear="1" joint="leg_left_knee_pitch_joint"/>
-    <motor name="leg_left_ankle_pitch"  gear="1" joint="leg_left_ankle_pitch_joint"/>
-    <motor name="leg_left_ankle_roll"   gear="1" joint="leg_left_ankle_roll_joint"/>
-    <motor name="leg_right_hip_roll"    gear="1" joint="leg_right_hip_roll_joint"/>
-    <motor name="leg_right_hip_yaw"     gear="1" joint="leg_right_hip_yaw_joint"/>
-    <motor name="leg_right_hip_pitch"   gear="1" joint="leg_right_hip_pitch_joint"/>
-    <motor name="leg_right_knee_pitch"  gear="1" joint="leg_right_knee_pitch_joint"/>
-    <motor name="leg_right_ankle_pitch" gear="1" joint="leg_right_ankle_pitch_joint"/>
-    <motor name="leg_right_ankle_roll"  gear="1" joint="leg_right_ankle_roll_joint"/>
-  </actuator>
-
-  <sensor>
-    <jointpos name="leg_left_hip_roll_pos"      joint="leg_left_hip_roll_joint"/>
-    <jointpos name="leg_left_hip_yaw_pos"       joint="leg_left_hip_yaw_joint"/>
-    <jointpos name="leg_left_hip_pitch_pos"     joint="leg_left_hip_pitch_joint"/>
-    <jointpos name="leg_left_knee_pitch_pos"    joint="leg_left_knee_pitch_joint"/>
-    <jointpos name="leg_left_ankle_pitch_pos"   joint="leg_left_ankle_pitch_joint"/>
-    <jointpos name="leg_left_ankle_roll_pos"    joint="leg_left_ankle_roll_joint"/>
-    <jointpos name="leg_right_hip_roll_pos"     joint="leg_right_hip_roll_joint"/>
-    <jointpos name="leg_right_hip_yaw_pos"      joint="leg_right_hip_yaw_joint"/>
-    <jointpos name="leg_right_hip_pitch_pos"    joint="leg_right_hip_pitch_joint"/>
-    <jointpos name="leg_right_knee_pitch_pos"   joint="leg_right_knee_pitch_joint"/>
-    <jointpos name="leg_right_ankle_pitch_pos"  joint="leg_right_ankle_pitch_joint"/>
-    <jointpos name="leg_right_ankle_roll_pos"   joint="leg_right_ankle_roll_joint"/>
-
-    <jointvel name="leg_left_hip_roll_vel"      joint="leg_left_hip_roll_joint"/>
-    <jointvel name="leg_left_hip_yaw_vel"       joint="leg_left_hip_yaw_joint"/>
-    <jointvel name="leg_left_hip_pitch_vel"     joint="leg_left_hip_pitch_joint"/>
-    <jointvel name="leg_left_knee_pitch_vel"    joint="leg_left_knee_pitch_joint"/>
-    <jointvel name="leg_left_ankle_pitch_vel"   joint="leg_left_ankle_pitch_joint"/>
-    <jointvel name="leg_left_ankle_roll_vel"    joint="leg_left_ankle_roll_joint"/>
-    <jointvel name="leg_right_hip_roll_vel"     joint="leg_right_hip_roll_joint"/>
-    <jointvel name="leg_right_hip_yaw_vel"      joint="leg_right_hip_yaw_joint"/>
-    <jointvel name="leg_right_hip_pitch_vel"    joint="leg_right_hip_pitch_joint"/>
-    <jointvel name="leg_right_knee_pitch_vel"   joint="leg_right_knee_pitch_joint"/>
-    <jointvel name="leg_right_ankle_pitch_vel"  joint="leg_right_ankle_pitch_joint"/>
-    <jointvel name="leg_right_ankle_roll_vel"   joint="leg_right_ankle_roll_joint"/>
-
-    <jointactuatorfrc name="leg_left_hip_roll_torque"     joint="leg_left_hip_roll_joint"/>
-    <jointactuatorfrc name="leg_left_hip_yaw_torque"      joint="leg_left_hip_yaw_joint"/>
-    <jointactuatorfrc name="leg_left_hip_pitch_torque"    joint="leg_left_hip_pitch_joint"/>
-    <jointactuatorfrc name="leg_left_knee_pitch_torque"   joint="leg_left_knee_pitch_joint"/>
-    <jointactuatorfrc name="leg_left_ankle_pitch_torque"  joint="leg_left_ankle_pitch_joint"/>
-    <jointactuatorfrc name="leg_left_ankle_roll_torque"   joint="leg_left_ankle_roll_joint"/>
-    <jointactuatorfrc name="leg_right_hip_roll_torque"    joint="leg_right_hip_roll_joint"/>
-    <jointactuatorfrc name="leg_right_hip_yaw_torque"     joint="leg_right_hip_yaw_joint"/>
-    <jointactuatorfrc name="leg_right_hip_pitch_torque"   joint="leg_right_hip_pitch_joint"/>
-    <jointactuatorfrc name="leg_right_knee_pitch_torque"  joint="leg_right_knee_pitch_joint"/>
-    <jointactuatorfrc name="leg_right_ankle_pitch_torque" joint="leg_right_ankle_pitch_joint"/>
-    <jointactuatorfrc name="leg_right_ankle_roll_torque"  joint="leg_right_ankle_roll_joint"/>
-
-    <framequat name="imu_quat" objtype="site" objname="imu" />
-    <gyro name="imu_gyro" site="imu" />
-    <accelerometer name="imu_acc" site="imu" />
-    <framepos name="frame_pos" objtype="site" objname="imu" />
-    <framelinvel name="frame_vel" objtype="site" objname="imu" />
-  </sensor>
-</mujoco>
-```
-
-For the humanoid robot:
-
-```xml
-  ... <!-- generated content -->
-  <worldbody>
-    <body name="base" pos="0 0 0.65">
-      <freejoint/>
-      <site name="imu" size="0.01" pos="0 0 0" />
-      ... <!-- generated content -->
-    </body>
-  </worldbody>
-
-  <actuator>
-    <motor name="arm_left_shoulder_pitch"   gear="1" joint="arm_left_shoulder_pitch_joint"/>
-    <motor name="arm_left_shoulder_roll"    gear="1" joint="arm_left_shoulder_roll_joint"/>
-    <motor name="arm_left_shoulder_yaw"     gear="1" joint="arm_left_shoulder_yaw_joint"/>
-    <motor name="arm_left_elbow_pitch"      gear="1" joint="arm_left_elbow_pitch_joint"/>
-    <motor name="arm_left_elbow_roll"       gear="1" joint="arm_left_elbow_roll_joint"/>
-    <motor name="arm_right_shoulder_pitch"  gear="1" joint="arm_right_shoulder_pitch_joint"/>
-    <motor name="arm_right_shoulder_roll"   gear="1" joint="arm_right_shoulder_roll_joint"/>
-    <motor name="arm_right_shoulder_yaw"    gear="1" joint="arm_right_shoulder_yaw_joint"/>
-    <motor name="arm_right_elbow_pitch"     gear="1" joint="arm_right_elbow_pitch_joint"/>
-    <motor name="arm_right_elbow_roll"      gear="1" joint="arm_right_elbow_roll_joint"/>
-    <motor name="leg_left_hip_roll"         gear="1" joint="leg_left_hip_roll_joint"/>
-    <motor name="leg_left_hip_yaw"          gear="1" joint="leg_left_hip_yaw_joint"/>
-    <motor name="leg_left_hip_pitch"        gear="1" joint="leg_left_hip_pitch_joint"/>
-    <motor name="leg_left_knee_pitch"       gear="1" joint="leg_left_knee_pitch_joint"/>
-    <motor name="leg_left_ankle_pitch"      gear="1" joint="leg_left_ankle_pitch_joint"/>
-    <motor name="leg_left_ankle_roll"       gear="1" joint="leg_left_ankle_roll_joint"/>
-    <motor name="leg_right_hip_roll"        gear="1" joint="leg_right_hip_roll_joint"/>
-    <motor name="leg_right_hip_yaw"         gear="1" joint="leg_right_hip_yaw_joint"/>
-    <motor name="leg_right_hip_pitch"       gear="1" joint="leg_right_hip_pitch_joint"/>
-    <motor name="leg_right_knee_pitch"      gear="1" joint="leg_right_knee_pitch_joint"/>
-    <motor name="leg_right_ankle_pitch"     gear="1" joint="leg_right_ankle_pitch_joint"/>
-    <motor name="leg_right_ankle_roll"      gear="1" joint="leg_right_ankle_roll_joint"/>
-  </actuator>
-
-  <sensor>
-    <jointpos name="arm_left_shoulder_pitch_pos"  joint="arm_left_shoulder_pitch_joint"/>
-    <jointpos name="arm_left_shoulder_roll_pos"   joint="arm_left_shoulder_roll_joint"/>
-    <jointpos name="arm_left_shoulder_yaw_pos"    joint="arm_left_shoulder_yaw_joint"/>
-    <jointpos name="arm_left_elbow_pitch_pos"     joint="arm_left_elbow_pitch_joint"/>
-    <jointpos name="arm_left_elbow_roll_pos"      joint="arm_left_elbow_roll_joint"/>
-    <jointpos name="arm_right_shoulder_pitch_pos" joint="arm_right_shoulder_pitch_joint"/>
-    <jointpos name="arm_right_shoulder_roll_pos"  joint="arm_right_shoulder_roll_joint"/>
-    <jointpos name="arm_right_shoulder_yaw_pos"   joint="arm_right_shoulder_yaw_joint"/>
-    <jointpos name="arm_right_elbow_pitch_pos"    joint="arm_right_elbow_pitch_joint"/>
-    <jointpos name="arm_right_elbow_roll_pos"     joint="arm_right_elbow_roll_joint"/>
-    <jointpos name="leg_left_hip_roll_pos"        joint="leg_left_hip_roll_joint"/>
-    <jointpos name="leg_left_hip_yaw_pos"         joint="leg_left_hip_yaw_joint"/>
-    <jointpos name="leg_left_hip_pitch_pos"       joint="leg_left_hip_pitch_joint"/>
-    <jointpos name="leg_left_knee_pitch_pos"      joint="leg_left_knee_pitch_joint"/>
-    <jointpos name="leg_left_ankle_pitch_pos"     joint="leg_left_ankle_pitch_joint"/>
-    <jointpos name="leg_left_ankle_roll_pos"      joint="leg_left_ankle_roll_joint"/>
-    <jointpos name="leg_right_hip_roll_pos"       joint="leg_right_hip_roll_joint"/>
-    <jointpos name="leg_right_hip_yaw_pos"        joint="leg_right_hip_yaw_joint"/>
-    <jointpos name="leg_right_hip_pitch_pos"      joint="leg_right_hip_pitch_joint"/>
-    <jointpos name="leg_right_knee_pitch_pos"     joint="leg_right_knee_pitch_joint"/>
-    <jointpos name="leg_right_ankle_pitch_pos"    joint="leg_right_ankle_pitch_joint"/>
-    <jointpos name="leg_right_ankle_roll_pos"     joint="leg_right_ankle_roll_joint"/>
-
-    <jointvel name="arm_left_shoulder_pitch_vel"  joint="arm_left_shoulder_pitch_joint"/>
-    <jointvel name="arm_left_shoulder_roll_vel"   joint="arm_left_shoulder_roll_joint"/>
-    <jointvel name="arm_left_shoulder_yaw_vel"    joint="arm_left_shoulder_yaw_joint"/>
-    <jointvel name="arm_left_elbow_pitch_vel"     joint="arm_left_elbow_pitch_joint"/>
-    <jointvel name="arm_left_elbow_roll_vel"      joint="arm_left_elbow_roll_joint"/>
-    <jointvel name="arm_right_shoulder_pitch_vel" joint="arm_right_shoulder_pitch_joint"/>
-    <jointvel name="arm_right_shoulder_roll_vel"  joint="arm_right_shoulder_roll_joint"/>
-    <jointvel name="arm_right_shoulder_yaw_vel"   joint="arm_right_shoulder_yaw_joint"/>
-    <jointvel name="arm_right_elbow_pitch_vel"    joint="arm_right_elbow_pitch_joint"/>
-    <jointvel name="arm_right_elbow_roll_vel"     joint="arm_right_elbow_roll_joint"/>
-    <jointvel name="leg_left_hip_roll_vel"        joint="leg_left_hip_roll_joint"/>
-    <jointvel name="leg_left_hip_yaw_vel"         joint="leg_left_hip_yaw_joint"/>
-    <jointvel name="leg_left_hip_pitch_vel"       joint="leg_left_hip_pitch_joint"/>
-    <jointvel name="leg_left_knee_pitch_vel"      joint="leg_left_knee_pitch_joint"/>
-    <jointvel name="leg_left_ankle_pitch_vel"     joint="leg_left_ankle_pitch_joint"/>
-    <jointvel name="leg_left_ankle_roll_vel"      joint="leg_left_ankle_roll_joint"/>
-    <jointvel name="leg_right_hip_roll_vel"       joint="leg_right_hip_roll_joint"/>
-    <jointvel name="leg_right_hip_yaw_vel"        joint="leg_right_hip_yaw_joint"/>
-    <jointvel name="leg_right_hip_pitch_vel"      joint="leg_right_hip_pitch_joint"/>
-    <jointvel name="leg_right_knee_pitch_vel"     joint="leg_right_knee_pitch_joint"/>
-    <jointvel name="leg_right_ankle_pitch_vel"    joint="leg_right_ankle_pitch_joint"/>
-    <jointvel name="leg_right_ankle_roll_vel"     joint="leg_right_ankle_roll_joint"/>
-
-    <jointactuatorfrc name="arm_left_shoulder_pitch_torque"   joint="arm_left_shoulder_pitch_joint"/>
-    <jointactuatorfrc name="arm_left_shoulder_roll_torque"    joint="arm_left_shoulder_roll_joint"/>
-    <jointactuatorfrc name="arm_left_shoulder_yaw_torque"     joint="arm_left_shoulder_yaw_joint"/>
-    <jointactuatorfrc name="arm_left_elbow_pitch_torque"      joint="arm_left_elbow_pitch_joint"/>
-    <jointactuatorfrc name="arm_left_elbow_roll_torque"       joint="arm_left_elbow_roll_joint"/>
-    <jointactuatorfrc name="arm_right_shoulder_pitch_torque"  joint="arm_right_shoulder_pitch_joint"/>
-    <jointactuatorfrc name="arm_right_shoulder_roll_torque"   joint="arm_right_shoulder_roll_joint"/>
-    <jointactuatorfrc name="arm_right_shoulder_yaw_torque"    joint="arm_right_shoulder_yaw_joint"/>
-    <jointactuatorfrc name="arm_right_elbow_pitch_torque"     joint="arm_right_elbow_pitch_joint"/>
-    <jointactuatorfrc name="arm_right_elbow_roll_torque"      joint="arm_right_elbow_roll_joint"/>
-    <jointactuatorfrc name="leg_left_hip_roll_torque"         joint="leg_left_hip_roll_joint"/>
-    <jointactuatorfrc name="leg_left_hip_yaw_torque"          joint="leg_left_hip_yaw_joint"/>
-    <jointactuatorfrc name="leg_left_hip_pitch_torque"        joint="leg_left_hip_pitch_joint"/>
-    <jointactuatorfrc name="leg_left_knee_pitch_torque"       joint="leg_left_knee_pitch_joint"/>
-    <jointactuatorfrc name="leg_left_ankle_pitch_torque"      joint="leg_left_ankle_pitch_joint"/>
-    <jointactuatorfrc name="leg_left_ankle_roll_torque"       joint="leg_left_ankle_roll_joint"/>
-    <jointactuatorfrc name="leg_right_hip_roll_torque"        joint="leg_right_hip_roll_joint"/>
-    <jointactuatorfrc name="leg_right_hip_yaw_torque"         joint="leg_right_hip_yaw_joint"/>
-    <jointactuatorfrc name="leg_right_hip_pitch_torque"       joint="leg_right_hip_pitch_joint"/>
-    <jointactuatorfrc name="leg_right_knee_pitch_torque"      joint="leg_right_knee_pitch_joint"/>
-    <jointactuatorfrc name="leg_right_ankle_pitch_torque"     joint="leg_right_ankle_pitch_joint"/>
-    <jointactuatorfrc name="leg_right_ankle_roll_torque"      joint="leg_right_ankle_roll_joint"/>
-
-    <framequat name="imu_quat" objtype="site" objname="imu" />
-    <gyro name="imu_gyro" site="imu" />
-    <accelerometer name="imu_acc" site="imu" />
-    <framepos name="frame_pos" objtype="site" objname="imu" />
-    <framelinvel name="frame_vel" objtype="site" objname="imu" />
-  </sensor>
+onshape-to-robot-clear-cache
 ```
 
 
 ## Convert URDF to USD
 
-Similar to the Mujoco flow, we need to set the `ISAACLAB_HOME` environment variable to the path of the IsaacLab repository.
-
-An example would be:
+To generate USD file from URDF file, simply run the following command.
 
 ```bash
-export ISAACLAB_HOME=/home/tk/Documents/IsaacLab
-```
-
-> **Note**
->
-> At the time of writing, the URDF -> USD conversion is not very stable in Isaac Lab >= 2.0. As a workaround, we are using Isaac Lab 1.4.0 to generate the USD file. A separate conda environment is required to run the conversion, and the `ISAACLAB_HOME` environment variable should point to the path of the Isaac Lab 1.4.0 repository.
-
-Then, run the following command to convert the URDF to USD
-
-```bash
-make usd
+uv run ./scripts/convert_urdf_to_usd.py ./data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/berkeley_humanoid_lite.urdf 
 ```
 
 

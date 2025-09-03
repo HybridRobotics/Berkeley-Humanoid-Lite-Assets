@@ -1,6 +1,6 @@
 [project]
 name = "berkeley_humanoid_lite_assets"
-version = "2025.05.28"
+version = "2025.09.03"
 description = "Description files for Berkeley Humanoid Lite"
 authors = [
     { name = "Berkeley Humanoid Project Developers" },
@@ -17,6 +17,10 @@ keywords = ["robotics", "isaaclab"]
 classifiers = [
     "Natural Language :: English",
     "Programming Language :: Python :: 3.10",
+]
+dependencies = [
+    "onshape-to-robot",
+    "pymeshlab==2023.12.post3",
 ]
 
 [project.urls]
