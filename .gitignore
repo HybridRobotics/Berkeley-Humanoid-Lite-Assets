@@ -7,15 +7,9 @@
 **/*.pb
 
 # Onshape-to-robot
-ros2/build/
-ros2/install/
-ros2/log/
-data/mjcf/assets/*
-!data/mjcf/assets/merged
-data/urdf/assets/*
-!data/urdf/assets/merged
+**/assets/*
 
 # Omniverse USD
-data/usd/Props/
-data/usd/.asset_hash
-data/usd/config.yaml
+**/usd/Props/
+**/usd/.asset_hash
+**/usd/config.yaml
