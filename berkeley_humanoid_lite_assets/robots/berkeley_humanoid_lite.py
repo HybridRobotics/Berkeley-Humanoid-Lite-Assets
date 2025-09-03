@@ -40,7 +40,7 @@ HUMANOID_LITE_JOINTS = HUMANOID_LITE_ARM_JOINTS + HUMANOID_LITE_LEG_JOINTS
 
 HUMANOID_LITE_BIPED_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{ISAACLAB_ASSET_DIR}/berkeley_humanoid/berkeley_humanoid_lite/usd/berkeley_humanoid_lite_biped.usd",
+        usd_path=f"{ISAACLAB_ASSET_DIR}/robots/berkeley_humanoid/berkeley_humanoid_lite/usd/berkeley_humanoid_lite_biped.usd",
         activate_contact_sensors=True,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
@@ -105,7 +105,7 @@ HUMANOID_LITE_BIPED_CFG = ArticulationCfg(
 
 HUMANOID_LITE_CFG = ArticulationCfg(
     spawn=sim_utils.UsdFileCfg(
-        usd_path=f"{ISAACLAB_ASSET_DIR}/berkeley_humanoid/berkeley_humanoid_lite/usd/berkeley_humanoid_lite.usd",
+        usd_path=f"{ISAACLAB_ASSET_DIR}/robots/berkeley_humanoid/berkeley_humanoid_lite/usd/berkeley_humanoid_lite.usd",
         activate_contact_sensors=True,
         rigid_props=sim_utils.RigidBodyPropertiesCfg(
             disable_gravity=False,
