@@ -8,7 +8,7 @@ resolution-markers = [
 
 [[package]]
 name = "berkeley-humanoid-lite-assets"
-version = "2025.5.28"
+version = "2025.9.2"
 source = { editable = "." }
 dependencies = [
     { name = "onshape-to-robot" },
