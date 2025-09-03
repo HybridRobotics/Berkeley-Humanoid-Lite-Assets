@@ -15,7 +15,7 @@ if __name__ == "__main__":
         "--config",
         type=str,
         help="Path to the config file.",
-        default="./data/berkeley_humanoid/berkeley_humanoid_lite/urdf/config.json",
+        default="./data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/config.json",
     )
     args = parser.parse_args()
 

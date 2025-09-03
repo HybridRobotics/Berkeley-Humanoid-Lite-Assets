@@ -18,20 +18,20 @@ Then, run the corresponding export script:
 For URDF:
 
 ```bash
-uv run ./scripts/export_onshape_to_urdf.py --config ./data/berkeley_humanoid/berkeley_humanoid_lite/urdf/config.json
+uv run ./scripts/export_onshape_to_urdf.py --config ./data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/config.json
 ```
 
 For MJCF
 
 ```bash
-uv run ./scripts/export_onshape_to_mjcf.py --config ./data/berkeley_humanoid/berkeley_humanoid_lite/mjcf/config.json
+uv run ./scripts/export_onshape_to_mjcf.py --config ./data/robots/berkeley_humanoid/berkeley_humanoid_lite/mjcf/config.json
 ```
 
 > **Note**
 >
 > Before running the script, make sure that the robot in the OnShape project is configured correctly, and all joints are at reset position.
 
-The resulting URDF will be generated at `/data/berkeley_humanoid/berkeley_humanoid_lite/urdf/`, MJCF will be generated at `/data/berkeley_humanoid/berkeley_humanoid_lite/mjcf/`, and the STL meshes will be shared under `/data/berkeley_humanoid/berkeley_humanoid_lite/meshes/`.
+The resulting URDF will be generated at `/data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/`, MJCF will be generated at `/data/robots/berkeley_humanoid/berkeley_humanoid_lite/mjcf/`, and the STL meshes will be shared under `/data/robots/berkeley_humanoid/berkeley_humanoid_lite/meshes/`.
 
 
 ### Cleaning onshape-to-robot cache
@@ -48,7 +48,7 @@ onshape-to-robot-clear-cache
 To generate USD file from URDF file, simply run the following command.
 
 ```bash
-uv run ./scripts/convert_urdf_to_usd.py ./data/berkeley_humanoid/berkeley_humanoid_lite/urdf/berkeley_humanoid_lite.urdf 
+uv run ./scripts/convert_urdf_to_usd.py ./data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/berkeley_humanoid_lite.urdf 
 ```
 
 
