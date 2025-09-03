@@ -18,6 +18,10 @@ classifiers = [
     "Natural Language :: English",
     "Programming Language :: Python :: 3.10",
 ]
+dependencies = [
+    "onshape-to-robot",
+    "pymeshlab==2023.12.post3",
+]
 
 [project.urls]
 repository = "https://github.com/HybridRobotics/Berkeley-Humanoid-Lite-Assets"
