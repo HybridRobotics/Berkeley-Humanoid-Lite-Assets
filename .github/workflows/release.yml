@@ -28,7 +28,7 @@ jobs:
       - name: Create data directory zip
         run: |
           cd data
-          zip -r ../berkeley_humanoid_lite_assets_data.zip .
+          zip -r ../imake_humanoid_robot_assets_data.zip .
           cd ..
           
       - name: Create Release
@@ -37,9 +37,9 @@ jobs:
           tag_name: ${{ steps.get_version.outputs.tag }}
           name: Release ${{ steps.get_version.outputs.version }}
           body: |
-            ## Berkeley Humanoid Lite Assets ${{ steps.get_version.outputs.version }}
+            ## iMake Humanoid Robot Assets ${{ steps.get_version.outputs.version }}
             
-            This release contains the latest asset files for Berkeley Humanoid Lite.
+            This release contains the latest asset files for iMake Humanoid Robot.
             
             ### Contents
             - MJCF files (MuJoCo XML)
@@ -50,7 +50,7 @@ jobs:
             
             ### Installation
             Extract the zip file and place the contents in your project's assets directory.
-          files: berkeley_humanoid_lite_assets_data.zip
+          files: imake_humanoid_robot_assets_data.zip
           draft: false
           prerelease: false
         env:

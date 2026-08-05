@@ -1,6 +1,6 @@
-# Berkeley Humanoid Lite Assets
+# iMake Humanoid Robot Assets
 
-This repository contains the assets files and tools necessary for working with the Berkeley Humanoid Lite model. It includes scripts for generating URDF files from Onshape and converting them to MJCF and USD formats to use in multiple simulators.
+This repository contains the assets files and tools necessary for working with the iMake Humanoid Robot model. It includes scripts for generating URDF files from Onshape and converting them to MJCF and USD formats to use in multiple simulators.
 
 
 ## Generate description file from Onshape
@@ -18,20 +18,20 @@ Then, run the corresponding export script:
 For URDF:
 
 ```bash
-uv run ./scripts/export_onshape_to_urdf.py --config ./data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/config.json
+uv run ./scripts/export_onshape_to_urdf.py --config ./data/robots/imake_humanoid_robot/imake_humanoid_robot/urdf/config.json
 ```
 
 For MJCF
 
 ```bash
-uv run ./scripts/export_onshape_to_mjcf.py --config ./data/robots/berkeley_humanoid/berkeley_humanoid_lite/mjcf/config.json
+uv run ./scripts/export_onshape_to_mjcf.py --config ./data/robots/imake_humanoid_robot/imake_humanoid_robot/mjcf/config.json
 ```
 
 > **Note**
 >
 > Before running the script, make sure that the robot in the OnShape project is configured correctly, and all joints are at reset position.
 
-The resulting URDF will be generated at `/data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/`, MJCF will be generated at `/data/robots/berkeley_humanoid/berkeley_humanoid_lite/mjcf/`, and the STL meshes will be shared under `/data/robots/berkeley_humanoid/berkeley_humanoid_lite/meshes/`.
+The resulting URDF will be generated at `/data/robots/imake_humanoid_robot/imake_humanoid_robot/urdf/`, MJCF will be generated at `/data/robots/imake_humanoid_robot/imake_humanoid_robot/mjcf/`, and the STL meshes will be shared under `/data/robots/imake_humanoid_robot/imake_humanoid_robot/meshes/`.
 
 
 ### Cleaning onshape-to-robot cache
@@ -48,7 +48,7 @@ onshape-to-robot-clear-cache
 To generate USD file from URDF file, simply run the following command.
 
 ```bash
-uv run ./scripts/convert_urdf_to_usd.py ./data/robots/berkeley_humanoid/berkeley_humanoid_lite/urdf/berkeley_humanoid_lite.urdf 
+uv run ./scripts/convert_urdf_to_usd.py ./data/robots/imake_humanoid_robot/imake_humanoid_robot/urdf/imake_humanoid_robot.urdf 
 ```
 
 

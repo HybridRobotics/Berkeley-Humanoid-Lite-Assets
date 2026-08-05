@@ -109,7 +109,7 @@ def postprocess_mjcf(name):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--mode", type=str, default="urdf")
-    parser.add_argument("--name", type=str, default="berkeley-humanoid-lite")
+    parser.add_argument("--name", type=str, default="imake-humanoid-robot")
     args = parser.parse_args()
 
     if args.mode == "urdf":
